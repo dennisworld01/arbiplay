@@ -3,7 +3,11 @@ async function loadArbs() {
   container.innerHTML = 'Loading...';
 
   try {
-    const res = await fetch('https://arbiplay-api.onrender.com/api/arbs');
+    // CORS proxy in front of the real backend
+    const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
+    const targetUrl = 'https://arbiplay-api.onrender.com/api/arbs';
+
+    const res = await fetch(proxyUrl + targetUrl);
     const data = await res.json();
 
     container.innerHTML = '';
@@ -32,5 +36,4 @@ async function loadArbs() {
   }
 }
 
-// Load automatically
 window.onload = loadArbs;
